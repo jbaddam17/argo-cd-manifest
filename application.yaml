@@ -1,0 +1,278 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: los-app-service
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: los-app-service
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-los-app-service
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: los-config-service
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: los-config-service
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-los-config-service
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: los-consumer-service
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: los-consumer-service
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-los-consumer-service
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: mongodb
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-mongodb
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: postgresql
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-postgres
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jaeger
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: jaeger
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-jaeger
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zookeeper
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: zookeeper
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-zookeeper
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: kafka
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-kafka
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: prometheus
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-prometheus
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
