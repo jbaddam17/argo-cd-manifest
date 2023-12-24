@@ -156,37 +156,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jaeger
-  namespace: argocd
-spec:
-  project: default
-
-  source:
-    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
-    path: jaeger
-    targetRevision: HEAD
-    helm:
-      valueFiles:
-        - values.yaml
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: dev-jaeger
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-      - Validate=true
-      - PrunePropagationPolicy=foreground
-      - PruneLast=true
-
-    automated:
-      selfHeal: true
-      prune: true
-      allowEmpty: false
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: zookeeper
   namespace: argocd
 spec:
@@ -264,6 +233,37 @@ spec:
 #  destination:
 #    server: https://kubernetes.default.svc
 #    namespace: dev-prometheus
+#
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#      - Validate=true
+#      - PrunePropagationPolicy=foreground
+#      - PruneLast=true
+#
+#    automated:
+#      selfHeal: true
+#      prune: true
+#      allowEmpty: false
+#---
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: jaeger
+#  namespace: argocd
+#spec:
+#  project: default
+#
+#  source:
+#    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+#    path: jaeger
+#    targetRevision: HEAD
+#    helm:
+#      valueFiles:
+#        - values.yaml
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: dev-jaeger
 #
 #  syncPolicy:
 #    syncOptions:
