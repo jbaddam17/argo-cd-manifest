@@ -1,39 +1,49 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: los-app-service
-#  namespace: argocd
-#spec:
-#  project: default
-#
-#  source:
-#    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
-#    path: los-app-service
-#    targetRevision: HEAD
-#    helm:
-#      valueFiles:
-#        - values.yaml
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: dev-los-app-service
-#
-#  syncPolicy:
-#    syncOptions:
-#      - CreateNamespace=true
-#      - Validate=true
-#      - PrunePropagationPolicy=foreground
-#      - PruneLast=true
-#
-#    automated:
-#      selfHeal: true
-#      prune: true
-#      allowEmpty: false
-#---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: los-app-service
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: https://hub.docker.com/repository/docker/jaganreddy17/los-app-service
+    argocd-image-updater.argoproj.io/write-back-method: git
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: los-app-service
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-los-app-service
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: los-config-service
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: https://hub.docker.com/repository/docker/jaganreddy17/los-config-service
+    argocd-image-updater.argoproj.io/write-back-method: git
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
@@ -59,68 +69,73 @@ spec:
       selfHeal: true
       prune: true
       allowEmpty: false
-#---
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: los-consumer-service
-#  namespace: argocd
-#spec:
-#  project: default
-#
-#  source:
-#    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
-#    path: los-consumer-service
-#    targetRevision: HEAD
-#    helm:
-#      valueFiles:
-#        - values.yaml
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: dev-los-consumer-service
-#
-#  syncPolicy:
-#    syncOptions:
-#      - CreateNamespace=true
-#      - Validate=true
-#      - PrunePropagationPolicy=foreground
-#      - PruneLast=true
-#
-#    automated:
-#      selfHeal: true
-#      prune: true
-#      allowEmpty: false
-#---
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: mongodb
-#  namespace: argocd
-#spec:
-#  project: default
-#
-#  source:
-#    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
-#    path: mongodb
-#    targetRevision: HEAD
-#    helm:
-#      valueFiles:
-#        - values.yaml
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: dev-mongodb
-#
-#  syncPolicy:
-#    syncOptions:
-#      - CreateNamespace=true
-#      - Validate=true
-#      - PrunePropagationPolicy=foreground
-#      - PruneLast=true
-#
-#    automated:
-#      selfHeal: true
-#      prune: true
-#      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: los-consumer-service
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: https://hub.docker.com/repository/docker/jaganreddy17/los-consumer-service
+    argocd-image-updater.argoproj.io/write-back-method: git
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: los-consumer-service
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-los-consumer-service
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/jbaddam17/loanoriginx-ci-cd.git
+    path: mongodb
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-mongodb
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: false
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
